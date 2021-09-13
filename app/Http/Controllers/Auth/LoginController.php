@@ -4,21 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use GuzzleHttp\Command\Exception\CommandClientException;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Session;
-use Mockery\Exception;
-use NotificationChannels\Discord\Discord;
-use NotificationChannels\Discord\DiscordChannel;
-use NotificationChannels\Discord\DiscordMessage;
 use Laravel\Socialite\Facades\Socialite;
 use App\User;
-use RestCord\DiscordClient;
-use Guzzle\Http\Exception\ClientErrorResponseException;
-use GuzzleHttp\Exception\ClientException;
 
 class LoginController extends Controller
 {
@@ -49,7 +37,9 @@ class LoginController extends Controller
 
     public function redirectToProvider()
     {
-        return Socialite::driver('discord')->redirect();
+        return Socialite::driver('discord')
+            ->setScopes(['identify']) //Overwrite scopes to ensure minimal scope access - Privacy
+            ->redirect();
     }
 
     public function handleProviderCallback()

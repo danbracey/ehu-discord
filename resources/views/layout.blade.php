@@ -8,13 +8,6 @@
     {{-- Which theme should be returned to the user? --}}
     <link rel="stylesheet" href="/css/dark/darktheme.css">
     <link rel="stylesheet" href="/css/bootadmin.min.css?v=2">
-
-    <script src='/js/moment.min.js' defer></script>
-    <script src="/js/jquery-ui.custom.min.js" defer></script>
-    <script src='/js/fullcalendar.min.js' defer></script>
-    <link rel="stylesheet" href="/css/fullcalendar.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js" defer></script>
     <style>
         @yield('css')
     </style>
@@ -59,36 +52,6 @@
     </div>
 @yield('content')
 </div>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/datatables.min.js"></script>
-<script src="/js/bootadmin.min.js"></script>
 @yield('footer')
-<script>
-$(document).ready( function () {
-    $('#example').DataTable();
-    $('textarea').summernote({
-        callbacks: {
-            onImageUpload: function (data) {
-                data.pop();
-            },
-            onPaste: function (e) {
-                var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
-                e.preventDefault();
-                document.execCommand('insertText', false, bufferText);
-            }
-        },
-        disableDragAndDrop: true,
-        toolbar: [
-            // [groupName, [list of button]]
-            ['style', ['bold', 'italic', 'underline', 'clear']],
-            ['font', ['fontfamily','fontsize']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['fullscreen', ['fullscreen']],
-            ['insert', ['link']]
-        ]
-    });
-} );
-</script>
 </body>
 </html>
