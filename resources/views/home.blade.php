@@ -33,6 +33,7 @@
                                 <option value="878625750377463810">I290 - Computing (Networking, Security and Forensics)</option>
                                 <option value="878625687899078676">I610 - Computing (Games Programming)</option>
                                 <option value="878989312505552976">II33 - Software Engineering</option>
+                                <option value="886896577988427797">MSc Big Data Analytics</option>
                                 <option value="878625966300217457">W4D7 - Web Design & Development</option>
                             </select>
                         </div>
