@@ -3,10 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Http;
-use Laravel\Socialite\Facades\Socialite;
 use RestCord\DiscordClient;
 
 class HomeController extends Controller
@@ -49,8 +45,31 @@ class HomeController extends Controller
             abort(500, "We can't sign you in. Are you a member of the EHU Discord Server?");
         }
 
+        //Get Course Roles
+        //Check that the course is valid
+        $GetDiscordRoles = $client->guild->getGuildRoles([
+            'guild.id' => (int)env('DISCORD_GUILD_ID')
+        ]);
+        $CourseList = array();
+
+        foreach ($GetDiscordRoles as $GDR) {
+            if($GDR->color == env('COURSE_ROLE_COLOR')) //Light Green Course Roles
+            {
+                $CourseList[$GDR->id] =
+                    ["name" => $GDR->name, "color" => $GDR->color];
+            }
+
+            if($GDR->color == env('ACCOMMODATION_ROLE_COLOR')) //Yellow accommodation Roles
+            {
+                $AccommodationList[$GDR->id] =
+                    ["name" => $GDR->name, "color" => $GDR->color];
+            }
+        }
+
         return view('home', [
             'User' => $user,
+            'CourseList' => $CourseList,
+            'AccommodationList' => $AccommodationList
         ]);
     }
 }

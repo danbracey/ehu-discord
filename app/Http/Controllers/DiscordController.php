@@ -34,7 +34,7 @@ class DiscordController extends Controller
             $course = $OutputDiscordRoles[$request->course];
 
             //Check the user isn't trying to give themselves admin
-            if($course['color'] == 0)
+            if($course['color'] == env('COURSE_ROLE_COLOR'))
             {
                 $discord->guild->addGuildMemberRole([
                     'guild.id' => (int)env('DISCORD_GUILD_ID'),
@@ -42,10 +42,10 @@ class DiscordController extends Controller
                     'role.id' => $request->course
                 ]);
             } else {
-                abort(403, "Nice try, but I'm not giving you admin lololol");
+                abort(403, "This is not a valid course");
             }
         } else {
-            dd("This role isn't valid");
+            abort(403, "Invalid selection");
         }
 
         Session::flash('success', 'Your course has been updated successfully');
@@ -73,7 +73,7 @@ class DiscordController extends Controller
             $accommodation = $OutputDiscordRoles[$request->accommodation];
 
             //Check the user isn't trying to give themselves admin
-            if($accommodation['color'] == 0)
+            if($accommodation['color'] == env('ACCOMMODATION_ROLE_COLOR'))
             {
                 $discord->guild->addGuildMemberRole([
                     'guild.id' => (int)env('DISCORD_GUILD_ID'),
@@ -81,10 +81,10 @@ class DiscordController extends Controller
                     'role.id' => $request->accommodation
                 ]);
             } else {
-                abort(403, "Nice try, but I'm not giving you admin lololol");
+                abort(403, "This role is not valid Accommodation");
             }
         } else {
-            dd("This role isn't valid");
+            abort(403, "Invalid selection");
         }
 
         Session::flash('success', 'Your accommodation has been updated successfully');

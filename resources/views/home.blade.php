@@ -24,17 +24,9 @@
                         </div>
                         <div class="card-body">
                             <select name="course">
-                                <option value="878625591425908767">CM17 - Computer Science & Mathematics</option>
-                                <option value="878625447427055647">CS12 - Computer Science</option>
-                                <option value="878625645557612586">G401 - Computing</option>
-                                <option value="878988527122120734">GH76 - Robotics & Artificial Intelligence</option>
-                                <option value="878625867453050920">GI11 - Data Science</option>
-                                <option value="878625531552215110">I1I4 - Computer Science & Artificial Intelligence</option>
-                                <option value="878625750377463810">I290 - Computing (Networking, Security and Forensics)</option>
-                                <option value="878625687899078676">I610 - Computing (Games Programming)</option>
-                                <option value="878989312505552976">II33 - Software Engineering</option>
-                                <option value="886896577988427797">MSc Big Data Analytics</option>
-                                <option value="878625966300217457">W4D7 - Web Design & Development</option>
+                                @foreach($CourseList as $CourseID => $Course)
+                                    <option value="{{$CourseID}}">{{$Course['name']}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="card-footer bg-white">
@@ -52,16 +44,9 @@
                         </div>
                         <div class="card-body">
                             <select name="accommodation">
-                                <option value="884499064438263809">Chancellors Court</option>
-                                <option value="884499127239598160">Chancellors South</option>
-                                <option value="884499188514160701">Founders East</option>
-                                <option value="884499203290705960">Founders West</option>
-                                <option value="884499230486577242">Palatine Court</option>
-                                <option value="884499271058088026">Graduates Court</option>
-                                <option value="884499307498192896">Forest Court</option>
-                                <option value="884499357527851009">Back Halls</option>
-                                <option value="884499396056727644">Main Halls</option>
-                                <option value="884499426234748939">Woodland Court</option>
+                                @foreach($AccommodationList as $AccommodationID => $Accommodation)
+                                    <option value="{{$AccommodationID}}">{{$Accommodation['name']}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="card-footer bg-white">

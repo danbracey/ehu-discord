@@ -34,7 +34,7 @@ return [
         'token' => env('DISCORD_BOT_TOKEN'),
         'client_id' => env('CLIENT_ID'),
         'client_secret' => env('CLIENT_SECRET'),
-        'redirect' => env('DISCORD_REDIRECT_URI'),
+        'redirect' => env('DISCORD_REDIRECT'),
     ],
 
     'steam' => [
