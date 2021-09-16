@@ -23,7 +23,7 @@
                             Select Course
                         </div>
                         <div class="card-body">
-                            <select name="course">
+                            <select name="course" class="form-select">
                                 @foreach($CourseList as $CourseID => $Course)
                                     <option value="{{$CourseID}}">{{$Course['name']}}</option>
                                 @endforeach
@@ -43,7 +43,7 @@
                             Select Accommodation<br>
                         </div>
                         <div class="card-body">
-                            <select name="accommodation">
+                            <select name="accommodation" class="form-select">
                                 @foreach($AccommodationList as $AccommodationID => $Accommodation)
                                     <option value="{{$AccommodationID}}">{{$Accommodation['name']}}</option>
                                 @endforeach
