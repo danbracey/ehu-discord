@@ -23,14 +23,14 @@
                             Select Course
                         </div>
                         <div class="card-body">
-                            <select name="course" class="form-select">
+                            <select name="course" class="form-control">
                                 @foreach($CourseList as $CourseID => $Course)
                                     <option value="{{$CourseID}}">{{$Course['name']}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="card-footer bg-white">
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save Changes</button>
                         </div>
                     </form>
                 </div>
@@ -43,14 +43,14 @@
                             Select Accommodation<br>
                         </div>
                         <div class="card-body">
-                            <select name="accommodation" class="form-select">
+                            <select name="accommodation" class="form-control">
                                 @foreach($AccommodationList as $AccommodationID => $Accommodation)
                                     <option value="{{$AccommodationID}}">{{$Accommodation['name']}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="card-footer bg-white">
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save Changes</button>
                         </div>
                     </form>
                 </div>
