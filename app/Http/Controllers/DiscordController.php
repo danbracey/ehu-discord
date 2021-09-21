@@ -36,9 +36,27 @@ class DiscordController extends Controller
             //Check the user isn't trying to give themselves admin
             if($course['color'] == env('COURSE_ROLE_COLOR'))
             {
+                $UserRoles = $discord->guild->getGuildMember([
+                    'guild.id' => (int)env('DISCORD_GUILD_ID'),
+                    'user.id' => (int)$request->session()->get('user')->id,
+                ]);
+
+                //Remove previous courses
+                foreach($OutputDiscordRoles as $key => $value) if ($value['color'] == env('COURSE_ROLE_COLOR'))
+                {
+                    if(in_array($key, $UserRoles->roles))
+                    {
+                        $discord->guild->removeGuildMemberRole([
+                            'guild.id' => (int)env('DISCORD_GUILD_ID'),
+                            'user.id' => (int)$request->session()->get('user')->id,
+                            'role.id' => $key
+                        ]);
+                    }
+                }
+
                 $discord->guild->addGuildMemberRole([
                     'guild.id' => (int)env('DISCORD_GUILD_ID'),
-                    'user.id' =>  (int)$request->session()->get('user')->id,
+                    'user.id' => (int)$request->session()->get('user')->id,
                     'role.id' => $request->course
                 ]);
             } else {
@@ -49,8 +67,7 @@ class DiscordController extends Controller
         }
 
         Session::flash('success', 'Your course has been updated successfully');
-        //Log user out
-        return redirect(route('logout'));
+        return redirect(route('home'));
     }
 
     public function accommodation(Request $request)
@@ -75,9 +92,27 @@ class DiscordController extends Controller
             //Check the user isn't trying to give themselves admin
             if($accommodation['color'] == env('ACCOMMODATION_ROLE_COLOR'))
             {
+                $UserRoles = $discord->guild->getGuildMember([
+                    'guild.id' => (int)env('DISCORD_GUILD_ID'),
+                    'user.id' => (int)$request->session()->get('user')->id,
+                ]);
+
+                //Remove previous accommodation
+                foreach($OutputDiscordRoles as $key => $value) if ($value['color'] == env('ACCOMMODATION_ROLE_COLOR'))
+                {
+                    if(in_array($key, $UserRoles->roles))
+                    {
+                        $discord->guild->removeGuildMemberRole([
+                            'guild.id' => (int)env('DISCORD_GUILD_ID'),
+                            'user.id' => (int)$request->session()->get('user')->id,
+                            'role.id' => $key
+                        ]);
+                    }
+                }
+
                 $discord->guild->addGuildMemberRole([
                     'guild.id' => (int)env('DISCORD_GUILD_ID'),
-                    'user.id' =>  (int)$request->session()->get('user')->id,
+                    'user.id' => (int)$request->session()->get('user')->id,
                     'role.id' => $request->accommodation
                 ]);
             } else {
@@ -89,6 +124,6 @@ class DiscordController extends Controller
 
         Session::flash('success', 'Your accommodation has been updated successfully');
         //Log user out
-        return redirect(route('logout'));
+        return redirect(route('home'));
     }
 }
