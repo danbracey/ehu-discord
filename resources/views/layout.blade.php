@@ -26,13 +26,9 @@
 {{-- Navigation --}}
 @guest
     @include ('navigation.navbar.public')
-    <div class="d-flex">
-    @include ('navigation.sidebar.public')
 @endguest
 @auth
     @include ('navigation.navbar.authenticated')
-    <div class="d-flex">
-    @include ('navigation.sidebar.authenticated')
 @endauth
 <div class="content p-4">
     {{-- Session Alerts --}}

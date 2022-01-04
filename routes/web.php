@@ -22,3 +22,4 @@ Route::get('logout', function () {session()->forget('user'); return view('index'
 
 Route::post('/course', 'DiscordController@course')->name('course');
 Route::post('/accommodation', 'DiscordController@accommodation')->name('accommodation');
+Route::post('/year', 'DiscordController@year')->name('year');

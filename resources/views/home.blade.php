@@ -7,13 +7,34 @@
             <div class="alert alert-info">{{ Session::get('message') }}</div>
         @endif
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="jumbotron">
                     <h1 class="display-4">Hello, {{$User->nick}}!</h1>
+                    <hr class="my-4">
+                    <p>Your user ID: {{$User->user->id}}</p>
+                    <p>Your discriminator: #{{$User->user->discriminator}}</p>
+                    <p>If you haven't already, please change your server nickname to your real name!</p>
                 </div>
-                <p>Your user ID: {{$User->user->id}}</p>
-                <p>Your discriminator: #{{$User->user->discriminator}}</p>
-                <p>If you haven't already, please change your server nickname to your real name!</p>
+            </div>
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <form action="/year" method="post">
+                        @csrf
+                        <div class="card-header bg-white font-weight-bold">
+                            Select Year of Study
+                        </div>
+                        <div class="card-body">
+                            <select name="year" class="form-control">
+                                @foreach($YearOfStudyList as $YearID => $Year)
+                                    <option value="{{$YearID}}">{{$Year['name']}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save Changes</button>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="col-md-3">
                 <div class="card mb-3">

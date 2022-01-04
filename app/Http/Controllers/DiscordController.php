@@ -126,4 +126,61 @@ class DiscordController extends Controller
         //Log user out
         return redirect(route('home'));
     }
+
+    public function year(Request $request)
+    {
+        $discord = new DiscordClient(['token' => env('DISCORD_BOT_TOKEN')]); // Token is required
+
+        //Check that the year is valid
+        $GetDiscordRoles = $discord->guild->getGuildRoles([
+            'guild.id' => (int)env('DISCORD_GUILD_ID')
+        ]);
+        $OutputDiscordRoles = array();
+
+        foreach ($GetDiscordRoles as $GDR) {
+            $OutputDiscordRoles[$GDR->id] =
+                ["name" => $GDR->name, "color" => $GDR->color];
+        }
+
+        if(array_key_exists($request->year, $OutputDiscordRoles))
+        {
+            $year = $OutputDiscordRoles[$request->year];
+
+            //Check the user isn't trying to give themselves admin
+            if($year['color'] == env('YEAR_OF_STUDY_ROLE_COLOR'))
+            {
+                $UserRoles = $discord->guild->getGuildMember([
+                    'guild.id' => (int)env('DISCORD_GUILD_ID'),
+                    'user.id' => (int)$request->session()->get('user')->id,
+                ]);
+
+                //Remove previous years
+                foreach($OutputDiscordRoles as $key => $value) if ($value['color'] == env('YEAR_OF_STUDY_ROLE_COLOR'))
+                {
+                    if(in_array($key, $UserRoles->roles))
+                    {
+                        $discord->guild->removeGuildMemberRole([
+                            'guild.id' => (int)env('DISCORD_GUILD_ID'),
+                            'user.id' => (int)$request->session()->get('user')->id,
+                            'role.id' => $key
+                        ]);
+                    }
+                }
+
+                $discord->guild->addGuildMemberRole([
+                    'guild.id' => (int)env('DISCORD_GUILD_ID'),
+                    'user.id' => (int)$request->session()->get('user')->id,
+                    'role.id' => $request->year
+                ]);
+            } else {
+                abort(403, "This role is not a valid year of study!");
+            }
+        } else {
+            abort(403, "Invalid selection");
+        }
+
+        Session::flash('success', 'Your year of study has been updated successfully');
+        //Log user out
+        return redirect(route('home'));
+    }
 }
