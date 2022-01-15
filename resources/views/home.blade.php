@@ -6,16 +6,14 @@
         @if (Session::has('message'))
             <div class="alert alert-info">{{ Session::get('message') }}</div>
         @endif
+        <div class="jumbotron">
+            <h1 class="display-4">Hello, {{$User->nick}}!</h1>
+            <hr class="my-4">
+            <p>Your user ID: {{$User->user->id}}</p>
+            <p>Your discriminator: #{{$User->user->discriminator}}</p>
+            <p>If you haven't already, please change your server nickname to your real name!</p>
+        </div>
         <div class="row">
-            <div class="col-md-3">
-                <div class="jumbotron">
-                    <h1 class="display-4">Hello, {{$User->nick}}!</h1>
-                    <hr class="my-4">
-                    <p>Your user ID: {{$User->user->id}}</p>
-                    <p>Your discriminator: #{{$User->user->discriminator}}</p>
-                    <p>If you haven't already, please change your server nickname to your real name!</p>
-                </div>
-            </div>
             <div class="col-md-3">
                 <div class="card mb-3">
                     <form action="/year" method="post">
@@ -69,6 +67,24 @@
                                     <option value="{{$AccommodationID}}">{{$Accommodation['name']}}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <form action="{{route('module')}}" method="post">
+                        @csrf
+                        <div class="card-header bg-white font-weight-bold">
+                            Optional Modules<br>
+                        </div>
+                        <div class="card-body">
+                            @foreach($ModuleList as $ModuleID => $Module)
+                                <input type="checkbox" name="module_choice[]" value="{{$ModuleID}}" id="{{$ModuleID}}" style="margin-right: 5px"><label for="{{$ModuleID}}">{{$Module['name']}}</label><br>
+                            @endforeach
                         </div>
                         <div class="card-footer bg-white">
                             <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save Changes</button>

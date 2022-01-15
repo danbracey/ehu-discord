@@ -60,13 +60,20 @@ class HomeController extends Controller
                 $YearOfStudyList[$GDR->id] =
                     ["name" => $GDR->name, "color" => $GDR->color];
             }
+
+            if($GDR->color == env('MODULE_ROLE_COLOR')) //Pink year of study Roles
+            {
+                $ModuleList[$GDR->id] =
+                    ["name" => $GDR->name, "color" => $GDR->color];
+            }
         }
 
         return view('home', [
             'User' => $user,
             'CourseList' => $CourseList,
             'AccommodationList' => $AccommodationList,
-            'YearOfStudyList' => $YearOfStudyList
+            'YearOfStudyList' => $YearOfStudyList,
+            'ModuleList' => $ModuleList
         ]);
     }
 }
