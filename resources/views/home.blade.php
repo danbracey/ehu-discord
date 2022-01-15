@@ -83,7 +83,11 @@
                         </div>
                         <div class="card-body">
                             @foreach($ModuleList as $ModuleID => $Module)
+                                @if(in_array($ModuleID, $User->roles))
+                                <input type="checkbox" name="module_choice[]" value="{{$ModuleID}}" id="{{$ModuleID}}" style="margin-right: 5px" checked><label for="{{$ModuleID}}">{{$Module['name']}}</label><br>
+                                @else
                                 <input type="checkbox" name="module_choice[]" value="{{$ModuleID}}" id="{{$ModuleID}}" style="margin-right: 5px"><label for="{{$ModuleID}}">{{$Module['name']}}</label><br>
+                                @endif
                             @endforeach
                         </div>
                         <div class="card-footer bg-white">
