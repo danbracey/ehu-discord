@@ -35,7 +35,6 @@ class HomeController extends Controller
             abort(500, "We can't sign you in. Are you a member of the EHU Discord Server?");
         }
 
-        //Get Course Roles
         //Check that the course is valid
         $GetDiscordRoles = $client->guild->getGuildRoles([
             'guild.id' => (int)env('DISCORD_GUILD_ID')
