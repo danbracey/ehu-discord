@@ -42,31 +42,37 @@ class HomeController extends Controller
         ]);
         $CourseList = array();
 
-        foreach ($GetDiscordRoles as $GDR) {
-            if($GDR->color == env('COURSE_ROLE_COLOR')) //Light Green Course Roles
+        foreach ($GetDiscordRoles as $key => $row) {
+            if($row->color == env('COURSE_ROLE_COLOR')) //Light Green Course Roles
             {
-                $CourseList[$GDR->id] =
-                    ["name" => $GDR->name, "color" => $GDR->color];
+                $CourseList[$key] =
+                    ["name" => $row->name, "color" => $row->color, "position" => $row->position];
             }
 
-            if($GDR->color == env('ACCOMMODATION_ROLE_COLOR')) //Yellow accommodation Roles
+            if($row->color == env('ACCOMMODATION_ROLE_COLOR')) //Yellow accommodation Roles
             {
-                $AccommodationList[$GDR->id] =
-                    ["name" => $GDR->name, "color" => $GDR->color];
+                $AccommodationList[$key] =
+                    ["name" => $row->name, "color" => $row->color, "position" => $row->position];
             }
 
-            if($GDR->color == env('YEAR_OF_STUDY_ROLE_COLOR')) //Pink year of study Roles
+            if($row->color == env('YEAR_OF_STUDY_ROLE_COLOR')) //Pink year of study Roles
             {
-                $YearOfStudyList[$GDR->id] =
-                    ["name" => $GDR->name, "color" => $GDR->color];
+                $YearOfStudyList[$key] =
+                    ["name" => $row->name, "color" => $row->color, "position" => $row->position];
             }
 
-            if($GDR->color == env('MODULE_ROLE_COLOR')) //Pink year of study Roles
+            if($row->color == env('MODULE_ROLE_COLOR')) //Pink year of study Roles
             {
-                $ModuleList[$GDR->id] =
-                    ["name" => $GDR->name, "color" => $GDR->color];
+                $ModuleList[$row->id] =
+                    ["name" => $row->name, "color" => $row->color, "position" => $row->position];
             }
         }
+
+        //Sort all arrays by their role position in Discord
+        uasort($CourseList, function ($a, $b) { return $b['position'] - $a['position']; });
+        uasort($AccommodationList, function ($a, $b) { return $b['position'] - $a['position']; });
+        uasort($YearOfStudyList, function ($a, $b) { return $b['position'] - $a['position']; });
+        uasort($ModuleList, function ($a, $b) { return $b['position'] - $a['position']; });
 
         return view('home', [
             'User' => $user,

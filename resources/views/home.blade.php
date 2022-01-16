@@ -79,7 +79,7 @@
                     <form action="{{route('module')}}" method="post">
                         @csrf
                         <div class="card-header bg-white font-weight-bold">
-                            Optional Modules<br>
+                            Module Chats<br>
                         </div>
                         <div class="card-body">
                             @foreach($ModuleList as $ModuleID => $Module)
