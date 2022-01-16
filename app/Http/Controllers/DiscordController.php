@@ -222,7 +222,7 @@ class DiscordController extends Controller
 
                     //Check the user isn't trying to give themselves admin
                     if ($module['color'] == env('MODULE_ROLE_COLOR')) {
-                        $RolesToAddToUser[] = $module_choice;
+                        $RolesToAddToUser[] = (int) $module_choice;
                     } else {
                         abort(403, "This role is not a valid optional module choice!");
                     }
@@ -231,11 +231,19 @@ class DiscordController extends Controller
                 }
             }
         } else {
-            return back()->with('danger', 'No optional modules selected, any previous optional modules have been removed!');
+            $discord->guild->modifyGuildMember([
+                'guild.id' => (int)env('DISCORD_GUILD_ID'),
+                'user.id' => (int)$request->session()->get('user')->id,
+                'roles' => $UserRolesToAddBackOn
+            ]);
+
+            return back()->with('warning', 'No modules selected! All modules removed from user');
         }
 
         //Add the roles the user selected + the roles they already had.
         $UserRoles = array_merge($RolesToAddToUser, $UserRolesToAddBackOn);
+
+        //dd($UserRoles);
 
         $discord->guild->modifyGuildMember([
             'guild.id' => (int)env('DISCORD_GUILD_ID'),
