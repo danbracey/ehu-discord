@@ -14,6 +14,7 @@
             <p>If you haven't already, please change your server nickname to your real name!</p>
         </div>
         <div class="row">
+            @if(! in_array(912824895522627644 , $User->roles))
             <div class="col-md-3">
                 <div class="card mb-3">
                     <form action="/year" method="post">
@@ -62,6 +63,7 @@
                             Select Accommodation<br>
                         </div>
                         <div class="card-body">
+
                             <select name="accommodation" class="form-control">
                                 @foreach($AccommodationList as $AccommodationID => $Accommodation)
                                     <option value="{{$AccommodationID}}">{{$Accommodation['name']}}</option>
@@ -74,7 +76,13 @@
                     </form>
                 </div>
             </div>
+            @endif
+            @if(! in_array(912824895522627644 , $User->roles))
             <div class="col-md-3">
+            @else
+            <div class="col-md-12">
+                <div class="alert alert-info">Courses, Accommodation & Year of Study options are not accessible by Staff. Please choose the modules you are interested in/teach below to access these.</div>
+                @endif
                 <div class="card mb-3">
                     <form action="{{route('module')}}" method="post">
                         @csrf

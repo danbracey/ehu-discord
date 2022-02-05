@@ -23,13 +23,7 @@
     <title>@yield('title') | EHU Computer Science</title>
 </head>
 <body class="bg-light">
-{{-- Navigation --}}
-@guest
-    @include ('navigation.navbar.public')
-@endguest
-@auth
-    @include ('navigation.navbar.authenticated')
-@endauth
+@include ('navigation.navbar')
 <div class="content p-4">
     {{-- Session Alerts --}}
     @if (Session::has('success'))
