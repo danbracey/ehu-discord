@@ -39,31 +39,20 @@ class HomeController extends Controller
         $GetDiscordRoles = $client->guild->getGuildRoles([
             'guild.id' => (int)env('DISCORD_GUILD_ID')
         ]);
-        $CourseList = array();
 
         foreach ($GetDiscordRoles as $key => $row) {
             if($row->color == env('COURSE_ROLE_COLOR')) //Light Green Course Roles
             {
-                $CourseList[$key] =
-                    ["name" => $row->name, "color" => $row->color, "position" => $row->position];
-            }
-
-            if($row->color == env('ACCOMMODATION_ROLE_COLOR')) //Yellow accommodation Roles
+                $CourseList[$row->id] = ["name" => $row->name, "color" => $row->color, "position" => $row->position];
+            } elseif ($row->color == env('ACCOMMODATION_ROLE_COLOR')) //Yellow accommodation Roles
             {
-                $AccommodationList[$key] =
-                    ["name" => $row->name, "color" => $row->color, "position" => $row->position];
-            }
-
-            if($row->color == env('YEAR_OF_STUDY_ROLE_COLOR')) //Pink year of study Roles
+                $AccommodationList[$row->id] = ["name" => $row->name, "color" => $row->color, "position" => $row->position];
+            } elseif ($row->color == env('YEAR_OF_STUDY_ROLE_COLOR')) //Pink year of study Roles
             {
-                $YearOfStudyList[$key] =
-                    ["name" => $row->name, "color" => $row->color, "position" => $row->position];
-            }
-
-            if($row->color == env('MODULE_ROLE_COLOR')) //Pink year of study Roles
+                $YearOfStudyList[$row->id] = ["name" => $row->name, "color" => $row->color, "position" => $row->position];
+            } elseif($row->color == env('MODULE_ROLE_COLOR')) //Pink year of study Roles
             {
-                $ModuleList[$row->id] =
-                    ["name" => $row->name, "color" => $row->color, "position" => $row->position];
+                $ModuleList[$row->id] = ["name" => $row->name, "color" => $row->color, "position" => $row->position];
             }
         }
 

@@ -1,14 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Jobs\DisableUser;
-use App\Role;
-use App\role_user;
-use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use RestCord\DiscordClient;
 

@@ -17,15 +17,15 @@
             @if(! in_array(912824895522627644 , $User->roles))
             <div class="col-md-3">
                 <div class="card mb-3">
-                    <form action="/year" method="post">
+                    <form action="/course" method="post">
                         @csrf
                         <div class="card-header bg-white font-weight-bold">
-                            Select Year of Study
+                            Select Course
                         </div>
                         <div class="card-body">
-                            <select name="year" class="form-control">
-                                @foreach($YearOfStudyList as $YearID => $Year)
-                                    <option value="{{$YearID}}">{{$Year['name']}}</option>
+                            <select name="course" class="form-control">
+                                @foreach($CourseList as $CourseID => $Course)
+                                    <option value="{{$CourseID}}">{{$Course['name']}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -37,15 +37,15 @@
             </div>
             <div class="col-md-3">
                 <div class="card mb-3">
-                    <form action="/course" method="post">
+                    <form action="/year" method="post">
                         @csrf
                         <div class="card-header bg-white font-weight-bold">
-                            Select Course
+                            Select Year of Study
                         </div>
                         <div class="card-body">
-                            <select name="course" class="form-control">
-                                @foreach($CourseList as $CourseID => $Course)
-                                    <option value="{{$CourseID}}">{{$Course['name']}}</option>
+                            <select name="year" class="form-control">
+                                @foreach($YearOfStudyList as $YearID => $Year)
+                                    <option value="{{$YearID}}">{{$Year['name']}}</option>
                                 @endforeach
                             </select>
                         </div>
