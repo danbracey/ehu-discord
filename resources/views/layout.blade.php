@@ -16,7 +16,7 @@
     <meta charset="utf-8" />
     <meta property="og:title" content="EHU Computer Science" />
     <meta property="og:site_name" content="EHU Computer Science" />
-    <meta property="og:image" content="/images/plasma_logo.png"/>
+    <meta property="og:image" content="/images/logo.png"/>
     <meta property="og:image:width" content="500" />
     <meta property="og:image:height" content="500" />
 
